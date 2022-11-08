@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg5"
     tools:context=".RegisterActivity">
 
     <ScrollView
@@ -14,10 +15,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:background="#42A5F5" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/card_view"
@@ -27,6 +24,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="10dp"
                 android:elevation="10dp"
+                app:cardBackgroundColor="#E6FFFFFF"
                 app:cardCornerRadius="40dp">
 
                 <LinearLayout
@@ -60,6 +58,7 @@
                         android:layout_width="150dp"
                         android:layout_height="150dp"
                         android:layout_gravity="center"
+                        android:src="@drawable/registlogo"
                         android:layout_marginTop="8dp" />
 
 
@@ -161,11 +160,9 @@
                             android:id="@+id/register_btn"
                             android:layout_width="130dp"
                             android:layout_height="50dp"
-                            android:layout_below="@+id/linear2"
-                            android:layout_centerHorizontal="true"
                             android:layout_gravity="center"
                             android:layout_marginTop="20dp"
-                            android:backgroundTint="#2196F3"
+                            android:backgroundTint="#B749559C"
                             android:fontFamily="@font/poppins_bold"
                             android:text="Daftar"
                             android:textColor="#FFFFFF"
@@ -173,15 +170,6 @@
                     </LinearLayout>
                 </LinearLayout>
 
-                <ProgressBar
-                    android:id="@+id/progress_barr"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_gravity="center"
-                    android:indeterminateTint="#FFFFFF"
-                    android:indeterminateTintMode="src_atop"
-                    android:visibility="gone" />
             </androidx.cardview.widget.CardView>
 
             <LinearLayout
@@ -203,12 +191,13 @@
                     android:id="@+id/have_account"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
+                    android:layout_marginStart="8dp"
                     android:clickable="true"
                     android:fontFamily="@font/poppins_semibold"
                     android:foreground="?attr/selectableItemBackground"
                     android:text="Login"
-                    android:textColor="#5C6BC0" />
+                    android:textColor="#5C6BC0"
+                    android:focusable="true" />
             </LinearLayout>
 
             <ImageButton
@@ -224,6 +213,14 @@
                 android:foreground="?attr/selectableItemBackground" />
 
         </RelativeLayout>
+
     </ScrollView>
+
+    <ProgressBar
+        android:id="@+id/pgbar"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"/>
 
 </RelativeLayout>

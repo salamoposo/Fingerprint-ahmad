@@ -8,11 +8,13 @@ import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.AuthResult;
@@ -25,17 +27,18 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.MissingFormatArgumentException;
 import java.util.regex.Pattern;
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
-
-    TextView haveAcount_tv;
-    MaterialButton register_btn;
-    private EditText nama_edt, email_edt, pass_edt, confirmpass_edt;
-
-    private FirebaseDatabase database = FirebaseDatabase.getInstance();
-    private DatabaseReference Pengguna;
     private FirebaseAuth mAuth;
+    private TextView haveAcount_tv;
+    private MaterialButton register_btn;
+    private EditText nama_edt, email_edt, pass_edt, confirmpass_edt, ID_edt;
+    private FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private DatabaseReference Pengguna, refEnroll;
+    private ProgressBar pgbarr;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +47,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
         mAuth = FirebaseAuth.getInstance();
 
-        nama_edt =  findViewById(R.id.edt_nama);
+        pgbarr = findViewById(R.id.pgbar);
+
+        nama_edt = findViewById(R.id.edt_nama);
         email_edt = findViewById(R.id.edt_email);
         pass_edt = findViewById(R.id.edt_pass);
         confirmpass_edt = findViewById(R.id.edt_confirmpass);
@@ -58,7 +63,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.register_btn:
                 registerUser();
                 break;
@@ -84,34 +89,34 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         String ConfirmPass = confirmpass_edt.getText().toString().trim();
         Integer Id = 0;
 
-        if (Nama.isEmpty()){
+        if (Nama.isEmpty()) {
             nama_edt.setError("Masukkan Nama Lengkap");
             nama_edt.requestFocus();
             return;
         }
 
-        if (Email.isEmpty()){
+        if (Email.isEmpty()) {
             email_edt.setError("Masukkan Email");
             email_edt.requestFocus();
             return;
         }
 
-        if (!Patterns.EMAIL_ADDRESS.matcher(Email).matches()){
+        if (!Patterns.EMAIL_ADDRESS.matcher(Email).matches()) {
             email_edt.setError("Email tidak valid");
             email_edt.requestFocus();
             return;
         }
-        if (Password.isEmpty()){
+        if (Password.isEmpty()) {
             pass_edt.setError("Masukkan Password");
             pass_edt.requestFocus();
             return;
         }
-        if (Password.length()<6){
+        if (Password.length() < 6) {
             pass_edt.setError("Password Minimal 6");
             pass_edt.requestFocus();
             return;
         }
-        if (!ConfirmPass.equals(Password)){
+        if (!ConfirmPass.equals(Password)) {
             confirmpass_edt.setError("Password Tidak Sama");
             confirmpass_edt.requestFocus();
             return;
@@ -121,25 +126,26 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()){
-                            User user = new User(Nama, Email, Password, Id);
-                            String userID = mAuth.getUid();
-                            assert userID != null;
-                            Pengguna = database.getReference("User").child(userID);
-                            Pengguna.setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        if (task.isSuccessful()) {
+                            User newUser = new User(Nama, Email, Id, Password);
+                            String userId = mAuth.getUid();
+                            Pengguna = database.getReference("User");
+                            Pengguna.child(userId).setValue(newUser).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
+                                    refEnroll = database.getReference("fingerprint").child("enroll");
+                                    refEnroll.setValue(1);
                                     startActivity(new Intent(RegisterActivity.this, RegisterFingerprintActivity.class));
                                     finish();
                                 }
                             });
+                        } else {
+                            Toast.makeText(RegisterActivity.this, "Gagal Register", Toast.LENGTH_SHORT).show();
 
-                        }else{
-                            Toast.makeText(RegisterActivity.this, "Gagal", Toast.LENGTH_SHORT).show();
                         }
-
                     }
                 });
+
 
     }
 }

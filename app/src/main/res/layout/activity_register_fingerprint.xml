@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg5"
     tools:context=".RegisterFingerprintActivity">
 
     <ScrollView
@@ -20,6 +21,7 @@
                 android:layout_below="@+id/back"
                 android:layout_centerHorizontal="true"
                 android:elevation="10dp"
+                app:cardBackgroundColor="#E6FFFFFF"
                 app:cardCornerRadius="40dp"
                 >
                 <LinearLayout
@@ -46,7 +48,7 @@
                         android:layout_height="150dp"
                         android:layout_gravity="center"
                         android:layout_marginTop="20dp"
-                        android:src="@drawable/ic_baseline_vpn_key_24" />
+                        android:src="@drawable/fingerprint" />
 
                     <LinearLayout
                         android:layout_marginTop="10dp"
@@ -121,19 +123,19 @@
                     </LinearLayout>
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btn_next"
-                        android:layout_width="130dp"
-                        android:layout_height="50dp"
-                        android:backgroundTint="#5C6BC0"
+                        android:layout_width="100dp"
+                        android:layout_height="45dp"
+                        android:backgroundTint="#B749559C"
                         android:layout_gravity="center"
                         android:layout_marginTop="20dp"
                         android:text="Next"
                         android:fontFamily="@font/poppins_bold"
                         android:textColor="@color/white"
                         android:textSize="14sp"
-                        app:cornerRadius="25dp"/>
+                        app:cornerRadius="10dp"/>
                 </LinearLayout>
                 <ProgressBar
-                    android:id="@+id/progressbarrFinger"
+                    android:id="@+id/progressbarrfinger"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"

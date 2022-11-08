@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/bgwhite"
     tools:context=".MainActivity">
 
     <androidx.cardview.widget.CardView
@@ -20,23 +21,28 @@
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="4dp"
+                android:layout_marginStart="4dp"
                 >
                 <ImageView
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:src="@drawable/oval"
                     android:layout_centerInParent="true"/>
+
                 <ImageView
-                    android:layout_width="37dp"
-                    android:layout_height="37dp"
+                    android:id="@+id/profile"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
                     android:layout_centerInParent="true"
-                    android:src="@drawable/ic_baseline_person_24"/>
+                    android:clickable="true"
+                    android:contentDescription="@string/app_name"
+                    android:src="@drawable/ic_baseline_person_24"
+                    android:focusable="true" />
             </RelativeLayout>
 
             <ImageView
-                android:layout_width="37dp"
-                android:layout_height="37dp"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 android:layout_marginRight="4dp"
                 android:src="@drawable/ic_baseline_info_24"
                 android:layout_alignParentRight="true"/>
@@ -45,6 +51,7 @@
     </androidx.cardview.widget.CardView>
 
     <TextView
+        android:id="@+id/selamat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Hi, User"
@@ -74,6 +81,7 @@
             android:layout_centerHorizontal="true" />
 
         <ImageView
+            android:id="@+id/lockLogo"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_centerInParent="true"
@@ -109,7 +117,7 @@
                 android:fontFamily="@font/poppins_light"
                 android:textSize="12sp"
                 android:layout_gravity="center"
-                android:layout_marginLeft="10dp"/>
+                android:layout_marginStart="10dp"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -117,7 +125,7 @@
                 android:text="---"
                 android:textSize="12sp"
                 android:fontFamily="@font/poppins_light"
-                android:layout_marginLeft="5dp"/>
+                android:layout_marginStart="5dp"/>
             </LinearLayout>
     </androidx.cardview.widget.CardView>
 

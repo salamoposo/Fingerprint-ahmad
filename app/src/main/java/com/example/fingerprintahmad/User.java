@@ -4,12 +4,12 @@ public class User {
     public String NamaLengkap, Email, Password;
     public Integer Id;
 
-    public User(){
+    public User() {
 
     }
 
-    public User(String namaLengkap, String email, String password, Integer id){
-        this.NamaLengkap = namaLengkap;
+    public User(String nama, String email, Integer id, String password) {
+        this.NamaLengkap = nama;
         this.Email = email;
         this.Password = password;
         this.Id = id;
